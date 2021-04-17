@@ -1,0 +1,3 @@
+[submodule "cherrysoda-engine"]
+	path = cherrysoda-engine
+	url = https://github.com/fountainment/cherrysoda-engine.git
