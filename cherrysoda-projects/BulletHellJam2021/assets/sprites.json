@@ -1,0 +1,52 @@
+{
+"Sprites": [
+	{
+		"Name": "blink",
+		"path": "bullet_",
+		"start": "loop",
+		"Loop": [
+			{
+				"id": "loop",
+				"path": "blink",
+				"delay": 0.1
+			}
+		]
+	},
+	{
+		"Name": "breath",
+		"path": "bullet_",
+		"start": "loop",
+		"Loop": [
+			{
+				"id": "loop",
+				"path": "breath",
+				"delay": 0.1
+			}
+		]
+	},
+	{
+		"Name": "missile",
+		"path": "bullet_",
+		"start": "loop",
+		"Loop": [
+			{
+				"id": "loop",
+				"path": "missile",
+				"delay": 0.1
+			}
+		]
+	},
+	{
+		"Name": "electric",
+		"path": "bullet_",
+		"start": "loop",
+		"Loop": [
+			{
+				"id": "loop",
+				"path": "electric",
+				"delay": 0.1
+			}
+		]
+	}
+]
+}
