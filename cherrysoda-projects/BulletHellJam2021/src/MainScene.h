@@ -27,6 +27,7 @@ public:
 	cherrysoda::SingleTagRenderer* m_screenTexRenderer = nullptr;
 
 	cherrysoda::Entity* m_player = nullptr;
+	cherrysoda::Entity* m_progressBar = nullptr;
 };
 
 } // namespace main
