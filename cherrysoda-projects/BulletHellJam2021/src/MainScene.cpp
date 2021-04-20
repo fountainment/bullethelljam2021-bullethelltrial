@@ -246,7 +246,7 @@ public:
 		if (m_progress > 1.f) {
 			m_progress = 0.f;
 			s_bulletPool.Traverse(
-				[](auto bullet)
+				[](Entity* bullet)
 				{
 					bullet->Collidable(false);
 					bullet->Get<BulletComponent>()->Stop();
@@ -438,7 +438,9 @@ void MainScene::Update()
 	if (s_dead) {
 		static float s_deadTime = 0.f;
 		Math::Vec2 center = m_player->Position2D() / Math::Vec2(180.f);
-		center.y = 1.f - center.y;
+		if (!Graphics::IsOriginBottomLeft()) {
+			center.y = 1.f - center.y;
+		}
 		float t = s_deadTime * 2.f;
 		float radius = t;
 		if (t > 1.5f) {
