@@ -3,50 +3,98 @@
 	{
 		"Name": "blink",
 		"path": "bullet_",
+		"delay": 0.1,
 		"start": "loop",
+		"Center": [],
+		"Anim": [
+			{
+				"id": "boom",
+				"path": "boom",
+				"delay": 0.0333
+			}
+		],
 		"Loop": [
 			{
 				"id": "loop",
-				"path": "blink",
-				"delay": 0.1
+				"path": "blink"
 			}
 		]
 	},
 	{
 		"Name": "breath",
 		"path": "bullet_",
+		"delay": 0.1,
 		"start": "loop",
+		"Center": [],
+		"Anim": [
+			{
+				"id": "boom",
+				"path": "boom",
+				"delay": 0.0333
+			}
+		],
 		"Loop": [
 			{
 				"id": "loop",
-				"path": "breath",
-				"delay": 0.1
+				"path": "breath"
 			}
 		]
 	},
 	{
 		"Name": "missile",
 		"path": "bullet_",
+		"delay": 0.1,
 		"start": "loop",
+		"Center": [],
+		"Anim": [
+			{
+				"id": "boom",
+				"path": "boom",
+				"delay": 0.0333
+			}
+		],
 		"Loop": [
 			{
 				"id": "loop",
-				"path": "missile",
-				"delay": 0.1
+				"path": "missile"
 			}
 		]
 	},
 	{
 		"Name": "electric",
 		"path": "bullet_",
+		"delay": 0.1,
 		"start": "loop",
+		"Center": [],
+		"Anim": [
+			{
+				"id": "boom",
+				"path": "boom",
+				"delay": 0.0333
+			}
+		],
 		"Loop": [
 			{
 				"id": "loop",
-				"path": "electric",
-				"delay": 0.1
+				"path": "electric"
 			}
 		]
-	}
+	},
+	{
+		"Name": "cover",
+		"path": "cover_",
+		"delay": 0.1,
+		"start": "intro",
+		"Loop": [
+			{
+				"id": "intro",
+				"path": "intro"
+			},
+			{
+				"id": "thanks",
+				"path": "thanks"
+			}
+		]
+ 	}
 ]
 }

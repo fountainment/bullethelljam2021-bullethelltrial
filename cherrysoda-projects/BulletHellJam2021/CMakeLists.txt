@@ -15,4 +15,4 @@ set(CHERRYSODA_SHADER_SRC
   shaders/fs_background.sc
 )
 
-add_cherrysoda_executable(PlatformerTrial)
+add_cherrysoda_executable(BulletHellJam2021)

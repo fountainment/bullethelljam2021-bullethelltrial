@@ -6,6 +6,7 @@
 
 namespace cherrysoda {
 class Entity;
+class Tween;
 class SingleTagRenderer;
 class TagExcludeRenderer;
 class RenderTarget2D;
@@ -28,6 +29,9 @@ public:
 
 	cherrysoda::Entity* m_player = nullptr;
 	cherrysoda::Entity* m_progressBar = nullptr;
+	cherrysoda::Entity* m_cover = nullptr;
+
+	cherrysoda::Tween* m_coverTween = nullptr;
 };
 
 } // namespace main
