@@ -30,9 +30,8 @@ vec3 field(vec3 p)
 
 void main()
 {
-	const vec2 u_resolution = vec2(180., 180.);
-	vec3 dir = normalize(vec3((gl_FragCoord.xy-u_resolution*.5)/u_resolution.x*0.5,1.));
-	vec3 pos = vec3(.5, .4, -u_time * 0.4);
+	vec3 dir = normalize(vec3((gl_FragCoord.xy-u_resolution*.5)/u_resolution.x*.5,1.));
+	vec3 pos = vec3(.5, .4, -u_time * .4);
 	vec3 color = vec3_splat(0.);
 	for (int i = 0; i < MAXITER; i++) {
 		vec3 f2 = field(pos);

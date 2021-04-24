@@ -338,6 +338,7 @@ void MainScene::Begin()
 {
 	Graphics::SetPointTextureSampling();
 
+	GUI::Disable();
 	InitSpriteBank();
 
 	Graphics::SetRenderPassOrder({ 0, kBackgroundPass, kMainPass, kScreenTexturePass });
