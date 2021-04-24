@@ -9,7 +9,7 @@ using platformertrial::PlatformerTrial;
 using namespace cherrysoda;
 
 PlatformerTrial::PlatformerTrial()
-	: base(960, 540, 960, 540, "BulletHellJam2021", false)
+	: base(720, 720, 720, 720, "BulletHellTrial", false)
 {
 	SetClearColor(Color::Black);
 }
