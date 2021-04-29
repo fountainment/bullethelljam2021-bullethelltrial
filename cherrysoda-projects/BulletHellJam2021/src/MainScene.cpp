@@ -21,6 +21,8 @@ constexpr type::UInt16 kBackgroundPass = 1;
 constexpr type::UInt16 kMainPass = 2;
 constexpr type::UInt16 kScreenTexturePass = 3;
 
+static bool s_dead = false;
+static float s_deadTime = 0.f;
 static float s_startTime = 0.f;
 static float s_localTimeRate = 1.f;
 
@@ -115,10 +117,10 @@ static void InitSpriteBank()
 	s_spriteBank = new SpriteBank("assets/atlases/atlas.json", "assets/sprites.json");
 }
 
-static void DestroySpriteBank()
-{
-	delete s_spriteBank;
-}
+// static void DestroySpriteBank()
+// {
+// 	delete s_spriteBank;
+// }
 
 class ProjectileComponent : public Component
 {
@@ -201,14 +203,14 @@ public:
 			break;
 		case 3:
 			{
-				static bool firstHere = true;
-				if (firstHere) {
+				static bool firstTimeHere = true;
+				if (firstTimeHere) {
 					auto coverTween = GetEntity()->GetSceneAs<MainScene>()->m_coverTween;
 					auto cover = GetEntity()->GetSceneAs<MainScene>()->m_cover;
 					coverTween->OnUpdate([cover](Tween* tween) { cover->PositionY(tween->Eased() * 180.f); });
 					coverTween->OnComplete([](Tween* tween) {});
 					coverTween->Start(true);
-					firstHere = false;
+					firstTimeHere = false;
 				}
 			}
 			break;
@@ -423,7 +425,6 @@ void MainScene::Update()
 		Math_Max(1.f, viewSize.y / (float)m_mainScreenTarget->Height()));
 	m_screenTexRenderer->GetCamera()->Scale2D(Math::Vec2(cameraScale));
 
-	static bool s_dead = false;
 	if (!s_dead) {
 		auto bullet = m_player->CollideFirst(s_bulletTag);
 		if (bullet) {
@@ -433,7 +434,6 @@ void MainScene::Update()
 		}
 	}
 	if (s_dead) {
-		static float s_deadTime = 0.f;
 		Math::Vec2 center = m_player->Position2D() / Math::Vec2(180.f);
 		if (!Graphics::IsOriginBottomLeft()) {
 			center.y = 1.f - center.y;
