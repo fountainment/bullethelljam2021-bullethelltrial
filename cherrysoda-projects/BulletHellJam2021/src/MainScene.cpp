@@ -9,7 +9,6 @@ static const BitTag s_bulletTag("bullet");
 static const BitTag s_backgroundTag("background");
 static const BitTag s_screenTextureTag("screen_texture");
 
-static Atlas* s_bulletAtlas = nullptr;
 static SpriteBank* s_spriteBank = nullptr;
 
 static Pool<Circle, 1000> s_circlePool;
@@ -113,14 +112,12 @@ static Entity* CreateBullet(const Math::Vec2& position, const Math::Vec2& veloci
 
 static void InitSpriteBank()
 {
-	s_bulletAtlas = Atlas::FromAtlas("assets/atlases/atlas.json");
-	s_spriteBank = new SpriteBank(s_bulletAtlas, "assets/sprites.json");
+	s_spriteBank = new SpriteBank("assets/atlases/atlas.json", "assets/sprites.json");
 }
 
 static void DestroySpriteBank()
 {
 	delete s_spriteBank;
-	delete s_bulletAtlas;
 }
 
 class ProjectileComponent : public Component
@@ -219,7 +216,6 @@ public:
 	}
 
 private:
-	static Atlas* ms_bulletAtlas;
 	static SpriteBank* ms_spriteBank;
 };
 
