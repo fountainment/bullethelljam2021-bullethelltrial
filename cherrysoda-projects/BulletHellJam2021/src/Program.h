@@ -1,8 +1,8 @@
-#ifndef _PLATFORMERTRIAL_PROGRAM_H_
-#define _PLATFORMERTRIAL_PROGRAM_H_
+#ifndef _BULLETHELLTRIAL_PROGRAM_H_
+#define _BULLETHELLTRIAL_PROGRAM_H_
 
-#include "PlatformerTrial.h"
+#include "BulletHellTrial.h"
 
-using GameApp = platformertrial::PlatformerTrial;
+using GameApp = bullethelltrial::BulletHellTrial;
 
-#endif // _PLATFORMERTRIAL_PROGRAM_H_
+#endif // _BULLETHELLTRIAL_PROGRAM_H_

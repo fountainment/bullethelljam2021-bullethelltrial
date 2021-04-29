@@ -1,8 +1,8 @@
 set(CHERRYSODA_EXECUTABLE_SRC
   src/Program.cpp
   src/Program.h
-  src/PlatformerTrial.cpp
-  src/PlatformerTrial.h
+  src/BulletHellTrial.cpp
+  src/BulletHellTrial.h
   src/MainScene.cpp
   src/MainScene.h
 )

@@ -1,27 +1,27 @@
-#include "PlatformerTrial.h"
+#include "BulletHellTrial.h"
 
 #include "MainScene.h"
 
 #include <CherrySoda/CherrySoda.h>
 
-using platformertrial::PlatformerTrial;
+using bullethelltrial::BulletHellTrial;
 
 using namespace cherrysoda;
 
-PlatformerTrial::PlatformerTrial()
+BulletHellTrial::BulletHellTrial()
 	: base(720, 720, 720, 720, "BulletHellTrial", false)
 {
 	SetClearColor(Color::Black);
 }
 
-void PlatformerTrial::Update()
+void BulletHellTrial::Update()
 {
 	base::Update();
 
 	// Add global GUI or other global stuffs here
 }
 
-void PlatformerTrial::Initialize()
+void BulletHellTrial::Initialize()
 {
 	base::Initialize();
 
@@ -30,7 +30,7 @@ void PlatformerTrial::Initialize()
 	SetScene(scene);
 }
 
-void PlatformerTrial::LoadContent()
+void BulletHellTrial::LoadContent()
 {
 	base::LoadContent();
 

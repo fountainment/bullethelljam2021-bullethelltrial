@@ -1,17 +1,17 @@
 #include <CherrySoda/Engine.h>
 
-namespace platformertrial {
+namespace bullethelltrial {
 
-class PlatformerTrial : public cherrysoda::Engine
+class BulletHellTrial : public cherrysoda::Engine
 {
 public:
 	typedef cherrysoda::Engine base;
 
-	PlatformerTrial();
+	BulletHellTrial();
 
 	void Update() override;
 	void Initialize() override;
 	void LoadContent() override;
 };
 
-} // namespace platformertrial
+} // namespace bullethelltrial
