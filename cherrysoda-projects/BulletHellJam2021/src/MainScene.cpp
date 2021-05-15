@@ -134,7 +134,6 @@ public:
 	{
 		static float s_angle = 0.f;
 		static int s_count = 0;
-		float deltaTime = Engine::Instance()->DeltaTime() * s_localTimeRate;
 		float gameTime = Engine::Instance()->GameTime() - s_startTime;
 		switch (s_level) {
 		case 0:
