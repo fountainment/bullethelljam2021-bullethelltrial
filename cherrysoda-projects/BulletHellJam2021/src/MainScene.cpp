@@ -143,7 +143,7 @@ public:
 				auto velocity = Calc::AngleToVector(-s_angle, 50.f + 5.f * gameTime);
 				auto bullet = CreateBullet(position, velocity, "blink");
 				if (bullet != nullptr) GetScene()->Add(bullet);
-				s_angle += deltaTime * 100.f;
+				s_angle += 1.f / 60.f * 100.f;
 			}
 			break;
 		case 1:
