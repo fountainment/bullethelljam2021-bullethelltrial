@@ -25,6 +25,8 @@ void BulletHellTrial::Initialize()
 {
 	base::Initialize();
 
+	Audio::MasterVolume(1.0);
+
 	// Initialize and set scene here
 	auto scene = new main::MainScene();
 	SetScene(scene);

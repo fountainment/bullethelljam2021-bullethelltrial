@@ -26,6 +26,8 @@ static float s_deadTime = 0.f;
 static float s_startTime = 0.f;
 static float s_localTimeRate = 1.f;
 
+static Audio::EventInstance s_bgm;
+
 class BulletComponent : public Component
 {
 public:
@@ -296,6 +298,7 @@ public:
 			s_level = 0;
 			s_startTime = Engine::Instance()->GameTime();
 			GetEntity()->GetSceneAs<MainScene>()->m_coverTween->Start();
+			Audio::Resume(s_bgm);
 		}
 		entity->MovePosition2D(move);
 		if (entity->Left() < 0.f) entity->Left(0.f);
@@ -413,6 +416,10 @@ void MainScene::Begin()
 	screenTex->Add(screenSpaceQuad);
 	Add(screenTex);
 
+	Audio::LoadFile("bgm", "assets/sounds/BulletHellTrialBGM.ogg");
+	s_bgm = Audio::Loop("bgm");
+	Audio::Stop(s_bgm);
+
 	base::Begin();
 }
 
@@ -447,6 +454,8 @@ void MainScene::Update()
 		m_player->Get<CircleGraphicsComponent>()->SetColor(Color::Blue);
 		s_deadTime += Engine::Instance()->RawDeltaTime();
 
+		Audio::SetParam(s_bgm, 1.0, 1.0 - radius / 2.0, 0.0);
+
 		if (radius < 0.f) {
 			m_player->Position2D(Math::Vec2(90.f));
 			m_player->Get<CircleGraphicsComponent>()->SetColor(Color::Yellow);
@@ -460,6 +469,9 @@ void MainScene::Update()
 			s_localTimeRate = 1.f;
 			s_startTime = Engine::Instance()->GameTime();
 			m_progressBar->Get<ProgressGraphicsComponent>()->ResetProgress();
+			Audio::Stop(s_bgm);
+			Audio::SetParam(s_bgm, 1.0, 1.0, 0.0);
+			Audio::Resume(s_bgm);
 		}
 	}
 
