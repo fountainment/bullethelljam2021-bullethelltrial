@@ -27,6 +27,7 @@ static float s_startTime = 0.f;
 static float s_localTimeRate = 1.f;
 
 static Audio::EventInstance s_bgm;
+static Audio::EventInstance s_hitSfx;
 
 class BulletComponent : public Component
 {
@@ -417,8 +418,14 @@ void MainScene::Begin()
 	Add(screenTex);
 
 	Audio::LoadFile("bgm", "assets/sounds/BulletHellTrialBGM.ogg");
+	Audio::LoadFile("hit", "assets/sounds/hit.wav");
+
 	s_bgm = Audio::Loop("bgm");
 	Audio::Stop(s_bgm);
+
+	s_hitSfx = Audio::Play("hit");
+	Audio::SetParam(s_hitSfx, 0.1, 1.0, 0.0);
+	Audio::Stop(s_hitSfx);
 
 	base::Begin();
 }
@@ -436,6 +443,7 @@ void MainScene::Update()
 			s_localTimeRate = 0.f;
 			MInput::GamePads(0)->Rumble(30.f, 0.2f);
 			s_dead = true;
+			Audio::Resume(s_hitSfx);
 		}
 	}
 	if (s_dead) {
