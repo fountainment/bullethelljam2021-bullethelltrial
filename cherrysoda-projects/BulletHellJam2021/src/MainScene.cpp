@@ -10,6 +10,8 @@ static const BitTag s_backgroundTag("background");
 static const BitTag s_screenTextureTag("screen_texture");
 
 static SpriteBank* s_spriteBank = nullptr;
+static ParticleSystem* s_particleSys = nullptr;
+static ParticleType* s_particleType = nullptr;
 
 static Pool<Circle, 1000> s_circlePool;
 static Pool<Entity, 1100> s_bulletPool;
@@ -249,9 +251,8 @@ public:
 				{
 					bullet->Collidable(false);
 					bullet->Get<BulletComponent>()->Stop();
-					bullet->Get<Sprite>()->OnFinish([bullet](auto id) { bullet->RemoveSelf(); });
-					bullet->Get<Sprite>()->Play("boom");
-					bullet->Get<Sprite>()->ZRotation(Calc::GetRandom()->NextAngle());
+					bullet->RemoveSelf();
+					s_particleSys->Emit(s_particleType, 10, bullet->Position2D(), Vec2_Zero);
 				});
 			s_level++;
 		}
@@ -340,6 +341,22 @@ void MainScene::Begin()
 
 	GUI::Disable();
 	InitSpriteBank();
+	s_particleSys = new ParticleSystem(-1, 1000);
+	s_particleType = new ParticleType();
+	s_particleType->m_color = Color::Yellow;
+	s_particleType->m_color2 = Color::Transparent;
+	s_particleType->m_speedMin = 0.f;
+	s_particleType->m_speedMax = 80.f;
+	s_particleType->m_size = 1.f;
+	s_particleType->m_sizeRange = .5f;
+	s_particleType->m_lifeMin = 0.8f;
+	s_particleType->m_lifeMax = 1.2f;
+	s_particleType->m_directionRange = Math::Pi2;
+	s_particleType->m_colorMode = ParticleType::ColorModes::Fade;
+	s_particleType->m_rotationMode = ParticleType::RotationModes::Random;
+	s_particleType->m_scaleOut = true;
+
+	Add(s_particleSys);
 
 	Graphics::SetRenderPassOrder({ 0, kBackgroundPass, kMainPass, kScreenTexturePass });
 
