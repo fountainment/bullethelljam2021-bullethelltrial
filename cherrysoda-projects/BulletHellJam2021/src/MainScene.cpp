@@ -437,12 +437,8 @@ void MainScene::Begin()
 	Audio::LoadFile("bgm", "assets/sounds/BulletHellTrialBGM.ogg");
 	Audio::LoadFile("hit", "assets/sounds/hit.wav");
 
-	s_bgm = Audio::Loop("bgm");
-	Audio::Stop(s_bgm);
-
-	s_hitSfx = Audio::Play("hit");
-	Audio::SetParam(s_hitSfx, 0.1, 1.0, 0.0);
-	Audio::Stop(s_hitSfx);
+	s_bgm = Audio::CreateLoopInstance("bgm");
+	s_hitSfx = Audio::CreateInstance("hit", 0.1);
 
 	base::Begin();
 }
@@ -479,7 +475,7 @@ void MainScene::Update()
 		m_player->Get<CircleGraphicsComponent>()->SetColor(Color::Blue);
 		s_deadTime += Engine::Instance()->RawDeltaTime();
 
-		Audio::SetParam(s_bgm, 1.0, 1.0 - radius / 2.0, 0.0);
+		s_bgm.SetPitch(1.0 - radius / 2.0);
 
 		if (radius < 0.f) {
 			m_player->Position2D(Math::Vec2(90.f));
@@ -494,9 +490,9 @@ void MainScene::Update()
 			s_localTimeRate = 1.f;
 			s_startTime = Engine::Instance()->GameTime();
 			m_progressBar->Get<ProgressGraphicsComponent>()->ResetProgress();
-			Audio::Stop(s_bgm);
-			Audio::SetParam(s_bgm, 1.0, 1.0, 0.0);
-			Audio::Resume(s_bgm);
+			s_bgm.Stop();
+			s_bgm.SetPitch(1.0);
+			s_bgm.Play();
 		}
 	}
 

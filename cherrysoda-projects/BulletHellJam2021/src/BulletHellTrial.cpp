@@ -9,7 +9,7 @@ using bullethelltrial::BulletHellTrial;
 using namespace cherrysoda;
 
 BulletHellTrial::BulletHellTrial()
-	: base(720, 720, 720, 720, "BulletHellTrial", false)
+	: base(720, 720, "BulletHellTrial")
 {
 	SetClearColor(Color::Black);
 }
