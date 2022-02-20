@@ -1,5 +1,7 @@
 #include "MainScene.h"
 
+#include "Program.h"
+
 #include <CherrySoda/CherrySoda.h>
 
 using namespace cherrysoda;
@@ -9,7 +11,6 @@ static const BitTag s_bulletTag("bullet");
 static const BitTag s_backgroundTag("background");
 static const BitTag s_screenTextureTag("screen_texture");
 
-static SpriteBank* s_spriteBank = nullptr;
 static ParticleSystem* s_particleSys = nullptr;
 static ParticleType* s_particleType = nullptr;
 
@@ -99,7 +100,7 @@ static Entity* CreateBullet(const Math::Vec2& position, const Math::Vec2& veloci
 	}
 	auto entity = s_bulletPool.Create();
 	auto circle = s_circlePool.Create(4.f);
-	auto sprite = s_spriteBank->CreateOn(s_spritePool.Create(), id);
+	auto sprite = GameApp::GetSpriteBank()->CreateOn(s_spritePool.Create(), id);
 	auto bulletComp = s_bulletCompPool.Create(velocity, rotationAlignWithVelocity);
 	entity->Position2D(position);
 	entity->Add(sprite);
@@ -109,23 +110,17 @@ static Entity* CreateBullet(const Math::Vec2& position, const Math::Vec2& veloci
 	entity->OnRemoved(
 		[circle, sprite, bulletComp](Entity* entity, Scene* scene)
 		{
-			s_circlePool.Destroy(circle);
-			s_spritePool.Destroy(sprite);
-			s_bulletCompPool.Destroy(bulletComp);
-			s_bulletPool.Destroy(entity);
+			scene->AddActionOnEndOfFrame(
+				[circle, sprite, bulletComp, entity]()
+				{
+					s_circlePool.Destroy(circle);
+					s_spritePool.Destroy(sprite);
+					s_bulletCompPool.Destroy(bulletComp);
+					s_bulletPool.Destroy(entity);
+				});
 		});
 	return entity;
 }
-
-static void InitSpriteBank()
-{
-	s_spriteBank = new SpriteBank("assets/atlases/atlas.json", "assets/sprites.json");
-}
-
-// static void DestroySpriteBank()
-// {
-// 	delete s_spriteBank;
-// }
 
 class ProjectileComponent : public Component
 {
@@ -219,9 +214,6 @@ public:
 			break;
 		}
 	}
-
-private:
-	static SpriteBank* ms_spriteBank;
 };
 
 
@@ -337,10 +329,6 @@ private:
 
 void MainScene::Begin()
 {
-	Graphics::SetPointTextureSampling();
-
-	GUI::Disable();
-	InitSpriteBank();
 	s_particleSys = new ParticleSystem(-1, 1000);
 	s_particleType = new ParticleType();
 	s_particleType->m_color = Color::Yellow;
@@ -363,8 +351,6 @@ void MainScene::Begin()
 	Graphics::UseRenderPass(kBackgroundPass)->SetClearColor(Color::Black);
 	Graphics::UseRenderPass(kMainPass)->SetClearDiscard();
 	Graphics::UseRenderPass(kScreenTexturePass)->SetClearDiscard();
-
-	Graphics::CreateUniformVec4("u_data");
 
 	m_mainScreenTarget = new RenderTarget2D(180.0f, 180.0f);
 
@@ -420,7 +406,7 @@ void MainScene::Begin()
 
 	m_cover = new Entity();
 	m_cover->Depth(-2);
-	auto coverSprite = s_spriteBank->Create("cover");
+	auto coverSprite = GameApp::GetSpriteBank()->Create("cover");
 	m_cover->Add(coverSprite);
 	m_coverTween = Tween::Create(TweenMode::Persist, Ease::SineInOut, 1.5f, false);
 	m_coverTween->OnUpdate([this](Tween* tween) { m_cover->PositionY(tween->Eased() * 180.f); });

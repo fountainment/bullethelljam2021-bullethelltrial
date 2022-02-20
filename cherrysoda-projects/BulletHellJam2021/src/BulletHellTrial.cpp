@@ -8,17 +8,12 @@ using bullethelltrial::BulletHellTrial;
 
 using namespace cherrysoda;
 
+SpriteBank* BulletHellTrial::ms_spriteBank = nullptr;
+
 BulletHellTrial::BulletHellTrial()
 	: base(720, 720, "BulletHellTrial")
 {
 	SetClearColor(Color::Black);
-}
-
-void BulletHellTrial::Update()
-{
-	base::Update();
-
-	// Add global GUI or other global stuffs here
 }
 
 void BulletHellTrial::Initialize()
@@ -26,8 +21,13 @@ void BulletHellTrial::Initialize()
 	base::Initialize();
 
 	Audio::MasterVolume(1.0);
+	Graphics::SetPointTextureSampling();
+	Graphics::CreateUniformVec4("u_data");
 
-	// Initialize and set scene here
+#ifndef CHERRYSODA_ENABLE_DEBUG
+	GUI::Disable();
+#endif
+
 	auto scene = new main::MainScene();
 	SetScene(scene);
 }
@@ -36,5 +36,13 @@ void BulletHellTrial::LoadContent()
 {
 	base::LoadContent();
 
-	// Load textures, sprites, shaders and other resources here
+	ms_spriteBank = new SpriteBank("assets/atlases/atlas.json", "assets/sprites.json");
+}
+
+void BulletHellTrial::UnloadContent()
+{
+	delete ms_spriteBank;
+	ms_spriteBank = nullptr;
+
+	base::UnloadContent();
 }
