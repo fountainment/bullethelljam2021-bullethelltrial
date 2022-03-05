@@ -107,18 +107,6 @@ static Entity* CreateBullet(const Math::Vec2& position, const Math::Vec2& veloci
 	entity->Add(bulletComp);
 	entity->SetCollider(circle);
 	entity->Tag(s_bulletTag);
-	entity->OnRemoved(
-		[circle, sprite, bulletComp](Entity* entity, Scene* scene)
-		{
-			scene->AddActionOnEndOfFrame(
-				[circle, sprite, bulletComp, entity]()
-				{
-					s_circlePool.Destroy(circle);
-					s_spritePool.Destroy(sprite);
-					s_bulletCompPool.Destroy(bulletComp);
-					s_bulletPool.Destroy(entity);
-				});
-		});
 	return entity;
 }
 
